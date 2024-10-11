@@ -1,0 +1,19 @@
+/* @media (max-width: 1199px) {
+}
+
+@media (max-width: 899px) {
+    .container {
+        width: 80%;
+    }
+
+    .todo__header {
+        width: 100%;
+    }
+
+    .todo__input-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 599px) {
+} */
