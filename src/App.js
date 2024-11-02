@@ -1,5 +1,8 @@
 import React from 'react';
-import Todo from './components/todo/Todo';
+import UserInfo from './components/userInfo/UserInfo';
+// import Posts from './components/JSONplaceholder/Posts/Posts';
+// import Users from './components/JSONplaceholder/Users/Users';
+// import Todo from './components/todo/Todo';
 // import Vacancy from './components/vacancy/Vacancy';
 // import Accordion from './components/accordion/Accordion';
 
@@ -8,7 +11,10 @@ const App = () => {
         <>
             {/* <Accordion /> */}
             {/* <Vacancy /> */}
-            <Todo />
+            {/* <Todo /> */}
+            {/* <Users /> */}
+            {/* <Posts /> */}
+            <UserInfo />
         </>
     );
 };

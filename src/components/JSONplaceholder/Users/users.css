@@ -1,0 +1,69 @@
+.user-container {
+    padding: 30px;
+}
+
+.user {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user__btn,
+.btn {
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.user-info {
+    padding: 5px;
+}
+
+.user-info--active {
+    border: 2px solid #a2929285;
+}
+
+.user-info__name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #444141;
+}
+
+.user-info__email,
+.user-info__phone,
+.user-info__p,
+.user-info__company,
+.post__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444141;
+}
+
+.user-posts__list {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.user-posts__item {
+    padding: 10px;
+    width: 360px;
+    border: 1px solid #a2929285;
+}
+
+.post__body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #444141;
+    text-align: justify;
+}
