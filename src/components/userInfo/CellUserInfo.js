@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { INPUT_TYPES } from './useReducer/useReducer';
 
-const INPUT_TYPES = ['text', 'text', 'number', 'email'];
-
-const CellUserInfo = ({ isEdit, index, columnValue, createObjectNewData }) => {
+const CellUserInfo = ({ isEdit, index, columnValue, createObjectNewData, handleKeyDownSave }) => {
     const [editUserCellInfo, setEditUserCellInfo] = useState(columnValue);
     // createObjectNewData(editUserCellInfo);
 
@@ -19,7 +18,7 @@ const CellUserInfo = ({ isEdit, index, columnValue, createObjectNewData }) => {
                     type={INPUT_TYPES[index]}
                     value={editUserCellInfo}
                     onChange={(e) => handleChangeInputText(e.target.value)}
-                    // onKeyDown={handleKeyDownSave}
+                    onKeyDown={handleKeyDownSave}
                 />
             ) : (
                 <span>{columnValue}</span>

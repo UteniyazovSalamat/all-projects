@@ -88,6 +88,7 @@
 }
 
 .posts__item {
+    margin-bottom: 15px;
     padding: 25px;
     border: 1px solid var(--color-lightGray);
     border-radius: 10px;
@@ -287,4 +288,23 @@
 .modal__btn-post:hover {
     background-color: var(--color-blue);
     color: var(--color-black);
+}
+
+/* CSSTransition */
+.post-enter {
+    transform: translateX(-350px);
+}
+
+.post-enter-active {
+    transform: translateX(0px);
+    transition: all 500ms ease-in-out;
+}
+
+.post-exit {
+    opacity: 1;
+}
+
+.post-exit-active {
+    transform: translateX(-350px);
+    transition: all 500ms ease-in-out;
 }

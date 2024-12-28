@@ -5,18 +5,17 @@ import TodoInputContainer from './TodoInputContainer';
 import TodoTasksContainer from './TodoTasksContainer';
 import TodoFooter from './TodoFooter';
 
-const getCurrentTime = () => {
-    const date = new Date();
-    const time = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
-    return time >= 9 && time < 21;
-};
-
 const Todo = () => {
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
-    const [theme, setTheme] = useState(getCurrentTime());
+    const [theme, setTheme] = useState(false);
+
+    const updateThemeByCurrentTime = () => {
+        const currentHour = new Date().getHours();
+        setTheme(currentHour >= 21 || currentHour < 9);
+    };
 
     useEffect(() => {
-        setTheme(getCurrentTime());
+        updateThemeByCurrentTime();
     }, []);
 
     const handleClickChangeTheme = () => {

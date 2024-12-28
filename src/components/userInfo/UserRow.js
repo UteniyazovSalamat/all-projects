@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import CellUserInfo from './CellUserInfo';
+import { COLUMN_NAMES_LOWER_CASE } from './useReducer/useReducer';
+import { Authcontext } from '../../context';
 
-const COLUMN_NAMES = ['name', 'surname', 'age', 'email'];
+const UserRow = ({ id, name, surname, age, email }) => {
+    const { dispatch } = useContext(Authcontext);
 
-const UserRow = ({ id, name, surname, age, email, setUsers }) => {
     const userListInfo = [
         { columnValue: name, uniqId: uuidv4() },
         { columnValue: surname, uniqId: uuidv4() },
@@ -14,6 +16,8 @@ const UserRow = ({ id, name, surname, age, email, setUsers }) => {
     ];
 
     const [isEdit, setIsEdit] = useState(false);
+
+    // должны были разобраться....
     // const [editedUserData, setEditedUserData] = useState({
     //     id,
     //     name,
@@ -24,13 +28,13 @@ const UserRow = ({ id, name, surname, age, email, setUsers }) => {
 
     let newObject = { id, name, surname, age, email };
     const createObjectNewData = (value, index) => {
-        newObject[COLUMN_NAMES[index]] = value;
+        newObject[COLUMN_NAMES_LOWER_CASE[index]] = value;
     };
 
     const handleClickSaveUser = async (id) => {
         try {
             const response = await axios.put(`https://671eb5571dfc42991982f658.mockapi.io/users/${id}`, newObject);
-            setUsers((prevState) => prevState.map((user) => (user.id === id ? response.data : user)));
+            dispatch({ type: 'UPDATE_USER', payload: { id, updatedUser: response.data } });
             setIsEdit(false);
             newObject = { id, name, surname, age, email };
         } catch (error) {
@@ -41,7 +45,7 @@ const UserRow = ({ id, name, surname, age, email, setUsers }) => {
     const handleClickDeleteUser = async () => {
         try {
             await axios.delete(`https://671eb5571dfc42991982f658.mockapi.io/users/${id}`);
-            setUsers((prevState) => prevState.filter((user) => user.id !== id));
+            dispatch({ type: 'REMOVE_USER', payload: id });
             setIsEdit(false);
         } catch (error) {
             console.log(error);
@@ -52,12 +56,13 @@ const UserRow = ({ id, name, surname, age, email, setUsers }) => {
         setIsEdit(false);
     };
 
-    // const handleKeyDownSave = (e) => {
-    //     if (e.key === 'Enter') {
-    //         handleClickSaveUser(id);
-    //     }
-    // };
+    const handleKeyDownSave = (e) => {
+        if (e.key === 'Enter') {
+            handleClickSaveUser(id);
+        }
+    };
 
+    // должны были разобраться....
     // const handleChangeUserData = (text, columnName) => {
     //     console.log(columnName);
     //     console.log(text);
@@ -74,7 +79,14 @@ const UserRow = ({ id, name, surname, age, email, setUsers }) => {
                 </label>
             </td>
             {userListInfo.map(({ columnValue, uniqId }, index) => (
-                <CellUserInfo isEdit={isEdit} key={uniqId} index={index} columnValue={columnValue} createObjectNewData={createObjectNewData} />
+                <CellUserInfo
+                    isEdit={isEdit}
+                    key={uniqId}
+                    index={index}
+                    columnValue={columnValue}
+                    createObjectNewData={createObjectNewData}
+                    handleKeyDownSave={handleKeyDownSave}
+                />
             ))}
 
             <td className="tbody__row-item">

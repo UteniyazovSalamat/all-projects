@@ -5,6 +5,7 @@ import Post from './Post';
 import Pagination from './Pagination';
 import ModalPost from './ModalPost';
 import Lodash from '../../../lodashTasks/Lodash';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const POST_PER_PAGE = 10;
 const MODAL_TYPES = {
@@ -76,18 +77,21 @@ const Posts = () => {
             />
             <Header modalActive={modalActive} setModalActive={setModalActive} handleClickOpenModal={handleClickOpenModal} setSearchPost={setSearchPost} />
             <ul className="posts__list">
-                {paginatedPosts.map((post) => (
-                    <Post
-                        key={post.id}
-                        handleClickMenu={handleClickMenu}
-                        id={post.id}
-                        title={post.title}
-                        body={post.body}
-                        activeMenuPost={activeMenuPost}
-                        handleClickDeletePost={handleClickDeletePost}
-                        handleClickOpenModal={handleClickOpenModal}
-                    />
-                ))}
+                <TransitionGroup>
+                    {paginatedPosts.map((post) => (
+                        <CSSTransition key={post.id} timeout={500} classNames="post">
+                            <Post
+                                handleClickMenu={handleClickMenu}
+                                id={post.id}
+                                title={post.title}
+                                body={post.body}
+                                activeMenuPost={activeMenuPost}
+                                handleClickDeletePost={handleClickDeletePost}
+                                handleClickOpenModal={handleClickOpenModal}
+                            />
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
             </ul>
             <Pagination pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             <Lodash />
